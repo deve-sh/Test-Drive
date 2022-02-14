@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 // A simple test runner.
 // Run it like 'testdrive <directory/filename>'
 
