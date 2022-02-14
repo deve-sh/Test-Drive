@@ -29,10 +29,20 @@ const describe = (suiteName, callback) => {
 	}
 };
 
+const fn = (functionCallback) => {
+	const mockFunc = (...args) => {
+		mockFunc.mock.calls += 1;
+		// Add args in a later implementation.
+		return functionCallback(...args);
+	};
+	mockFunc.mock = { calls: 0, callArgs: [] };
+	return mockFunc;
+};
+
 const expect = (expression) => {
 	const received = expression;
-	const createExpectationErorr = (expected) =>
-		error(`\nExpected: ${expected}\nReceived: ${received}\n`);
+	const createExpectationErorr = (expected, receivedVal) =>
+		error(`\nExpected: ${expected}\nReceived: ${receivedVal || received}\n`);
 
 	const toBe = (expected, negated = false) => {
 		const passesCase = negated ? received === expected : received !== expected;
@@ -40,7 +50,22 @@ const expect = (expression) => {
 	};
 	const toNotEqual = (expected) => toBe(expected, true);
 
-	return { toBe, toEqual: toBe, toNotEqual, notToBe: toNotEqual };
+	// For Mocked Functions
+	const toHaveBeenCalledTimes = (nTimes) => {
+		const func = expression;
+		if (!(func instanceof Function) || !func.mock)
+			return error("Expression is not of type function");
+		if (func.mock.calls.length !== nTimes)
+			return createExpectationErorr(nTimes, func.mock.calls.length);
+	};
+
+	return {
+		toBe,
+		toEqual: toBe,
+		toNotEqual,
+		notToBe: toNotEqual,
+		toHaveBeenCalledTimes,
+	};
 };
 
 global.describe = describe;
