@@ -8,6 +8,6 @@
 	"author": "",
 	"license": "ISC",
 	"bin": {
-		"testr": "./index.js"
+		"testdrive": "./index.js"
 	}
 }
