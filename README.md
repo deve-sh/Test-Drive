@@ -1,4 +1,4 @@
-# Test Drive
+# Test Drive / tesg
 
 A very simple test runner, inspired by Jest and articles related to it and it's inner workings.
 
@@ -9,13 +9,13 @@ NodeJS > `14.0.0`
 ### Get Started
 
 ```bash
-npm i -g testdrive
+npm i -g tesg
 ```
 
 ### Run Tests
 
 ```bash
-testdrive <directory/filename>
+tesg <directory/filename>
 ```
 
 In case of a directory, the files to be tested should have `.test` in their name.

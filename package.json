@@ -1,5 +1,5 @@
 {
-	"name": "testdrive",
+	"name": "tesg",
 	"version": "1.0.0",
 	"description": "",
 	"main": "index.js",
@@ -8,6 +8,6 @@
 	"author": "",
 	"license": "ISC",
 	"bin": {
-		"testdrive": "./index.js"
+		"tesg": "./index.js"
 	}
 }

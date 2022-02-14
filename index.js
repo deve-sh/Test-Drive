@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 // A simple test runner.
-// Run it like 'testdrive <directory/filename>'
+// Run it like 'tesg <directory/filename>'
 
 const testDirectory = process.argv[2];
 
