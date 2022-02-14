@@ -31,9 +31,10 @@ if (directoryStat.isDirectory()) {
 	const testFiles = getAllFiles(directoryName).filter((fileName) =>
 		fileName.includes(".test")
 	);
-	for (let i = 0; i < testFiles; i++) {
-		console.log(`Running Tests from ${testFiles[i]}`);
-		require(testFiles[i]);
+	for (let i = 0; i < testFiles.length; i++) {
+		const fileRelativePath = testFiles[i].split(process.cwd()).pop();
+		console.log(`Running Tests from .${fileRelativePath}`);
+		require(`.${fileRelativePath}`);
 	}
 } else {
 	// It's a normal file. Just require it and run the test cases.
