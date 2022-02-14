@@ -36,13 +36,13 @@ if (directoryStat.isDirectory()) {
 	for (let i = 0; i < testFiles.length; i++) {
 		const fileRelativePath = testFiles[i].split(process.cwd()).pop();
 		console.log(`Running Tests from .${fileRelativePath}`);
-		require(`.${fileRelativePath}`);
+		require(testFiles[i]);
 	}
 } else {
 	// It's a normal file. Just require it and run the test cases.
 	let fileName = directoryName;
 	console.log(`Running Tests from ${fileName}`);
-	require(fileName);
+	require(path.resolve(process.cwd(), fileName));
 }
 
 // Print out Stats after run

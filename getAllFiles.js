@@ -9,7 +9,7 @@ const getAllFiles = (dirPath, arrayOfFiles) => {
 	files.forEach((file) => {
 		if (fs.statSync(dirPath + "/" + file).isDirectory()) {
 			arrayOfFiles = getAllFiles(dirPath + "/" + file, arrayOfFiles);
-		} else arrayOfFiles.push(path.join(process.cwd(), dirPath, "/", file));
+		} else arrayOfFiles.push(path.join(dirPath, "/", file));
 	});
 
 	return arrayOfFiles;
