@@ -7,11 +7,12 @@ const error = (errorMessage) => {
 
 const test = (testName, callback) => {
 	try {
+		currentBlockTestCaseCount += 1;
 		validateCallStack("test", error);
-		global.testCount++;
+		testCount++;
 		callback();
 		console.log(`\t✓ ${testName}`);
-		global.callStackForTests.pop();
+		callStackForTests.pop();
 	} catch (err) {
 		console.error(`\t✕ ${testName}`);
 		console.error(err);
@@ -21,12 +22,17 @@ const test = (testName, callback) => {
 const describe = (suiteName, callback) => {
 	try {
 		validateCallStack("describe", error);
-		global.testSuiteCount++;
+		currentBlockTestCaseCount = 0;
+		testSuiteCount++;
 		console.log(`Running Suite: ${suiteName}`);
 		callback(); // Consists of 'test', 'expect' and 'it' blocks.
-		if (erroredCase) throw new Error("");
+		if (!currentBlockTestCaseCount)
+			throw new Error(
+				`You have an empty test suite: ${suiteName}. Please remove it or add test cases inside it.`
+			);
+		if (erroredCase) throw new Error(`Test Suite ${suiteName} failed.`);
 		console.log(`✓ ${suiteName}`);
-		global.callStackForTests.pop();
+		callStackForTests.pop();
 	} catch (err) {
 		console.error(`Test Suite Failed: ${suiteName}`);
 		if (err.message) console.error(err);
@@ -64,7 +70,7 @@ const expect = (expression) => {
 			return createExpectationErorr(nTimes, func.mock.calls.length);
 	};
 
-	global.callStackForTests.pop();
+	callStackForTests.pop();
 
 	return {
 		toBe,
