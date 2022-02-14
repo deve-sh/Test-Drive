@@ -27,7 +27,7 @@ const describe = (suiteName, callback) => {
 		console.log(`Running Suite: ${suiteName}`);
 		callback(); // Consists of 'test', 'expect' and 'it' blocks.
 		if (!currentBlockTestCaseCount)
-			throw new Error(
+			return error(
 				`You have an empty test suite: ${suiteName}. Please remove it or add test cases inside it.`
 			);
 		if (erroredCase) throw new Error(`Test Suite ${suiteName} failed.`);
